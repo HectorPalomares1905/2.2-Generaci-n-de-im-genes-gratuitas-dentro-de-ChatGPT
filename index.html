@@ -49,7 +49,7 @@
     .tag-coral { background: #e8755c; }
     .example-box { background: #fafafa; border: 1.5px dashed #3d5a96; border-radius: 12px; padding: 18px 20px; margin: 15px 0; }
     .example-box h4 { color: #3d5a96; margin: 0 0 6px; font-size: 16px; }
-    .example-box .prompt { background: #fff; padding: 10px 14px; border-radius: 8px; border: 1px solid #e0e0e0; margin-top: 8px; font-style: italic; color: #555; }
+    .example-box .Prompt { background: #fff; padding: 10px 14px; border-radius: 8px; border: 1px solid #e0e0e0; margin-top: 8px; font-style: italic; color: #555; }
     .example-box .resultado { background: #f0f4ff; padding: 8px 14px; border-radius: 8px; margin-top: 8px; font-size: 14px; color: #3d5a96; }
     .center { text-align: center; }
     .final { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; text-align: center; }
@@ -84,255 +84,92 @@
 <div id="slides-container"></div>
 
 <script>
-const slides = [
-    // ---------- PORTADA ----------
-    { tipo: 'portada' },
-
-    // ---------- INDICE ----------
+var slides = [
+    { Tipo: 'portada' },
     {
-        titulo: 'Indice',
+        titulo: 'Índice',
         num: '2 / 9',
-        body: `<div class="columns" style="font-size:18px;line-height:2.4;">
-            <div><strong style="color:#3d5a96;">1. Que es DALL-E?</strong><br>
-            - Generacion de imagenes con IA<br>
-            - Acceso gratuito en ChatGPT<br><br>
-            <strong style="color:#3d5a96;">2. Como crear imagenes</strong><br>
-            - Pasos basicos<br>
-            - Consejos para prompts visuales</div>
-            <div><strong style="color:#3d5a96;">3. Ejemplos practicos</strong><br>
-            - 6 ejemplos paso a paso<br><br>
-            <strong style="color:#3d5a96;">4. Buenas practicas</strong><br>
-            - Consejos clave<br>
-            - Comparativa de prompts<br><br>
-            <strong style="color:#3d5a96;">5. Conclusion</strong></div>
-        </div>`
+        body: '<div class="columns" style="font-size:18px;line-height:2.4;"><div><strong style="color:#3d5a96;">1. ¿Qué es DALL-E?</strong><br>- Generación de imágenes con IA<br>- Acceso gratuito en ChatGPT<br><br><strong style="color:#3d5a96;">2. Como crear imágenes</strong><br>- Pasos básicos<br>- Consejos para Prompts visuales</div><div><strong style="color:#3d5a96;">3. Ejemplos prácticos</strong><br>- 6 Ejemplos paso a paso<br><br><strong style="color:#3d5a96;">4. Buenas prácticas</strong><br>- Consejos clave<br>- Comparativa de Prompts<br><br><strong style="color:#3d5a96;">5. Conclusión</strong></div></div>'
     },
-
-    // ---------- 1. QUE ES DALL-E ----------
     {
-        titulo: '1. Que es DALL-E?',
+        titulo: '1. ¿Qué es DALL-E?',
         num: '3 / 9',
-        body: `<div class="block">
-            <div class="block-title">Definicion</div>
-            DALL-E es un sistema de inteligencia artificial desarrollado por OpenAI que genera imagenes a partir de descripciones escritas en lenguaje natural. Esta integrado directamente en ChatGPT.
-        </div>
-        <div style="margin-top:18px;">
-            <strong style="color:#3d5a96;">Como acceder gratis:</strong>
-            <ul>
-                <li>Entra a <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li>
-                <li>Inicia sesion con tu cuenta gratuita</li>
-                <li>En la conversacion, escribe un prompt describiendo la imagen que quieres crear</li>
-                <li>ChatGPT usara DALL-E automaticamente para generarla</li>
-            </ul>
-        </div>
-        <table style="margin-top:15px;">
-            <tr><th style="width:35%;">Plataforma</th><th>Genera imagenes?</th></tr>
-            <tr><td>ChatGPT (gratuito)</td><td>Si, con DALL-E (limite diario)</td></tr>
-            <tr><td>Gemini (gratuito)</td><td>Si, con Imagen de Google</td></tr>
-            <tr><td>Claude (gratuito)</td><td>No genera imagenes</td></tr>
-        </table>
-        <div class="block block-blue" style="margin-top:15px;">
-            <div class="block-title">Dato clave</div>
-            No necesitas saber de diseno ni de arte. Solo escribe lo que imaginas y DALL-E lo crea por ti.
-        </div>`
+        body: '<div class="block"><div class="block-title">Definición</div>DALL-E es un sistema de inteligencia artificial desarrollado por OpenAI que genera imágenes a partir de descripciones escritas en lenguaje natural. Está integrado directamente en ChatGPT.</div><div style="margin-top:18px;"><strong style="color:#3d5a96;">¿Cómo acceder gratis?</strong><ul><li>Entra a <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li><li>Inicia sesión con tu cuenta gratuita</li><li>En la conversación, escribe un prompt describiendo la imagen que quieres crear</li><li>ChatGPT usará DALL-E automáticamente para generarla</li></ul></div><table style="margin-top:15px;"><tr><th style="width:35%;">Plataforma</th><th>¿Genera imágenes?</th></tr><tr><td>ChatGPT (gratuito)</td><td>Si, con DALL-E (Límite diario)</td></tr><tr><td>Gemini (gratuito)</td><td>Si, con Imagen de Google</td></tr><tr><td>Claude (gratuito)</td><td>No genera imágenes</td></tr></table><div class="block block-blue" style="margin-top:15px;"><div class="block-title">Dato clave</div>No necesitas saber de diseño ni de arte. Solo escribe lo que imaginas y DALL-E lo crea por ti.</div>'
     },
-
-    // ---------- 2. COMO CREAR IMAGENES ----------
     {
-        titulo: '2. Como crear imagenes con DALL-E',
+        titulo: '2. Como crear imágenes con DALL-E',
         num: '4 / 9',
-        body: `<h3>Pasos basicos</h3>
-        <ol style="font-size:16px;line-height:2.4;">
-            <li><strong>Describe tu imagen:</strong> Escribe que quieres ver (objetos, colores, estilo, ambiente).</li>
-            <li><strong>Agrega detalles:</strong> Mientras mas especifico seas, mejor sera el resultado.</li>
-            <li><strong>Especifica el estilo:</strong> Realista, animado, acuarela, dibujo, 3D, etc.</li>
-            <li><strong>Itera:</strong> Si no te gusta, pidele ajustes a ChatGPT.</li>
-        </ol>
-
-        <h3 style="margin-top:20px;">Consejos para un buen prompt visual</h3>
-        <table>
-            <tr><th>Elemento</th><th style="width:60%;">Ejemplo</th></tr>
-            <tr><td>Sujeto principal</td><td>"un gato", "una casa moderna", "un logotipo"</td></tr>
-            <tr><td>Entorno o fondo</td><td>"en una playa", "en un bosque", "fondo blanco"</td></tr>
-            <tr><td>Estilo artistico</td><td>"estilo acuarela", "fotorrealista", "animado", "dibujo a lapiz"</td></tr>
-            <tr><td>Iluminacion</td><td>"luz natural", "atardecer", "iluminacion de estudio"</td></tr>
-            <tr><td>Colores</td><td>"tonos pastel", "blanco y negro", "colores vibrantes"</td></tr>
-            <tr><td>Formato</td><td>"horizontal 16:9", "cuadrado", "vertical"</td></tr>
-        </table>
-
-        <div class="block block-vino" style="margin-top:15px;">
-            <div class="block-title">Formula recomendada</div>
-            <em>"Crea una imagen de [sujeto] en [entorno], estilo [estilo], con [colores/iluminacion], formato [horizontal/cuadrado/vertical]."</em>
-        </div>`
+        body: '<h3>Pasos básicos</h3><ol style="font-size:16px;line-height:2.4;"><li><strong>Describe tu imagen:</strong> Escribe que quieres ver (objetos, colores, estilo, ambiente).</li><li><strong>Agrega detalles:</strong> Mientras más específico seas, mejor será el resultado.</li><li><strong>Especifica el estilo:</strong> Realista, animado, acuarela, dibujo, 3D, etc.</li><li><strong>Itera:</strong> Si no te gusta, pidele ajustes a ChatGPT.</li></ol><h3 style="margin-top:20px;">Consejos para un buen prompt visual</h3><table><tr><th>Elemento</th><th style="width:60%;">Ejemplo</th></tr><tr><td>Sujeto principal</td><td>"un gato", "una casa moderna", "un logotipo"</td></tr><tr><td>Entorno o fondo</td><td>"en una playa", "en un bosque", "fondo blanco"</td></tr><tr><td>Estilo artístico</td><td>"estilo acuarela", "fotorrealista", "animado", "dibujo a lápiz"</td></tr><tr><td>iluminación</td><td>"luz natural", "atardecer", "iluminación de estudio"</td></tr><tr><td>Colores</td><td>"tonos pastel", "blanco y negro", "colores vibrantes"</td></tr><tr><td>Formato</td><td>"horizontal 16:9", "cuadrado", "vertical"</td></tr></table><div class="block block-vino" style="margin-top:15px;"><div class="block-title">Fórmula recomendada</div><em>"Crea una imagen de [sujeto] en [entorno], estilo [estilo], con [colores/iluminación], formato [horizontal/cuadrado/vertical]."</em></div>'
     },
-
-    // ---------- 3. EJEMPLOS 1-3 ----------
     {
-        titulo: '3. Ejemplos practicos (1-3)',
+        titulo: '3. Ejemplos prácticos (1-3)',
         num: '5 / 9',
-        body: `<div class="example-box">
-            <h4>Ejemplo 1: Paisaje natural</h4>
-            <div class="prompt">"Crea una imagen de una montaña nevada con un lago cristalino al amanecer, estilo fotorrealista, colores frios, formato horizontal."</div>
-            <div class="resultado">Ideal para fondos de pantalla o presentaciones sobre naturaleza.</div>
-        </div>
-        <div class="example-box">
-            <h4>Ejemplo 2: Logotipo institucional</h4>
-            <div class="prompt">"Disena un logotipo moderno para un instituto de capacitacion, con un libro abierto y una estrella, colores azul y naranja, estilo minimalista, fondo blanco."</div>
-            <div class="resultado">Util para proyectos visuales sin saber diseno grafico.</div>
-        </div>
-        <div class="example-box">
-            <h4>Ejemplo 3: Escena educativa animada</h4>
-            <div class="prompt">"Ilustracion animada de un salon de clases con estudiantes diversos usando tablets, colores calidos, estilo cartoon, formato cuadrado."</div>
-            <div class="resultado">Perfecto para materiales educativos o presentaciones.</div>
-        </div>`
+        body: '<div class="example-box"><h4>Ejemplo 1: paisaje natural</h4><div class="prompt">"Crea una imagen de una montaña nevada con un lago cristalino al amanecer, estilo fotorrealista, colores fríos, formato horizontal."</div><div class="resultado">Ideal para fondos de pantalla o presentaciones sobre naturaleza.</div></div><div class="example-box"><h4>Ejemplo 2: logotipo institucional</h4><div class="prompt">"Diseña un logotipo moderno para un Instituto de Capacitación, con un libro abierto y una estrella, colores azul y naranja, estilo minimalista, fondo blanco."</div><div class="resultado">útil para proyectos visuales sin saber diseño gráfico.</div></div><div class="example-box"><h4>Ejemplo 3: Escena educativa animada</h4><div class="prompt">"Ilustración animada de un salón de clases con estudiantes diversos usando tablets, colores cálidos, estilo cartoon, formato cuadrado."</div><div class="resultado">Perfecto para materiales educativos o presentaciones.</div></div>'
     },
-
-    // ---------- 4. EJEMPLOS 4-6 ----------
     {
-        titulo: '3. Ejemplos practicos (4-6)',
+        titulo: '3. Ejemplos prácticos (4-6)',
         num: '6 / 9',
-        body: `<div class="example-box">
-            <h4>Ejemplo 4: Imagen para redes sociales</h4>
-            <div class="prompt">"Crea una imagen para Instagram de una taza de cafe humeante con hojas de otono alrededor, estilo acuarela, tonos naranja y marron, formato cuadrado."</div>
-            <div class="resultado">Ideal para publicaciones de redes sociales sin usar bancos de imagenes.</div>
-        </div>
-        <div class="example-box">
-            <h4>Ejemplo 5: Producto ficticio</h4>
-            <div class="prompt">"Genera la imagen de un envase de perfume elegante de vidrio azul con un tapon dorado, sobre una superficie de marmol, iluminacion de estudio, estilo fotorrealista."</div>
-            <div class="resultado">Sirve para catalogos conceptuales o lluvia de ideas de diseno.</div>
-        </div>
-        <div class="example-box">
-            <h4>Ejemplo 6: Mascota / personaje</h4>
-            <div class="prompt">"Dibuja una abeja robot simpatica con casco y herramientas, estilo animado 3D, colores amarillo y azul, fondo degradado."</div>
-            <div class="resultado">Util para crear personajes para campanas o juegos educativos.</div>
-        </div>`
+        body: '<div class="example-box"><h4>Ejemplo 4: Imagen para redes</h4><div class="prompt">"Crea una imagen para Instagram de una taza de café humeante con hojas de otoño alrededor, estilo acuarela, tonos naranja y marrón, formato cuadrado."</div><div class="resultado">Ideal para publicaciones de redes sociales sin usar bancos de imágenes.</div></div><div class="example-box"><h4>Ejemplo 5: Producto ficticio</h4><div class="prompt">"Genera la imagen de un envase de perfume elegante de vidrio azul con un tapón dorado, sobre una superficie de mármol, iluminación de estudio, estilo fotorrealista."</div><div class="resultado">Sirve para catálogos conceptuales o lluvia de ideas de diseño.</div></div><div class="example-box"><h4>Ejemplo 6: Mascota / personaje</h4><div class="prompt">"Dibuja una abeja robot simpática con casco y herramientas, estilo animado 3D, colores amarillo y azul, fondo degradado."</div><div class="resultado">útil para crear personajes para campañas o juegos educativos.</div></div>'
     },
-
-    // ---------- 5. COMPARATIVA ----------
     {
-        titulo: 'Comparativa: prompt basico vs. detallado',
+        titulo: 'Comparativa: Prompt básico vs. detallado',
         num: '7 / 9',
-        body: `<table>
-            <tr><th style="width:15%;">Tipo</th><th style="width:40%;">Prompt</th><th>Resultado esperado</th></tr>
-            <tr>
-                <td><span class="tag">Basico</span></td>
-                <td style="font-style:italic;color:#888;">"Un perro"</td>
-                <td>Imagen generica, puede no tener fondo ni estilo definido.</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-coral">Detallado</span></td>
-                <td style="font-style:italic;color:#555;">"Un perro golden retriever jugando en un parque soleado, estilo fotorrealista, colores calidos, formato horizontal."</td>
-                <td>Imagen especifica, lista para usar en presentaciones o redes.</td>
-            </tr>
-            <tr>
-                <td><span class="tag">Basico</span></td>
-                <td style="font-style:italic;color:#888;">"Una casa"</td>
-                <td>Resultado simple, sin detalles arquitectonicos.</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-coral">Detallado</span></td>
-                <td style="font-style:italic;color:#555;">"Casa moderna de dos pisos con jardin frontal y piscina, estilo render arquitectonico, iluminacion de atardecer, formato horizontal."</td>
-                <td>Imagen profesional utilizable en presentaciones de proyectos.</td>
-            </tr>
-        </table>
-        <div class="block block-pink" style="margin-top:15px;">
-            <div class="block-title">Regla practica</div>
-            Tu prompt debe tener al menos: <strong>sujeto + entorno + estilo + iluminacion/colores + formato</strong>.
-        </div>`
+        body: '<table><tr><th style="width:15%;">Tipo</th><th style="width:40%;">Prompt</th><th>Resultado esperado</th></tr><tr><td><span class="tag">Básico</span></td><td style="font-style:italic;color:#888;">"Un perro"</td><td>Imagen genérica, puede no tener fondo ni estilo definido.</td></tr><tr><td><span class="tag tag-coral">Detallado</span></td><td style="font-style:italic;color:#555;">"Un perro golden retriever jugando en un parque soleado, estilo fotorrealista, colores cálidos, formato horizontal."</td><td>Imagen específica, lista para usar.</td></tr><tr><td><span class="tag">Básico</span></td><td style="font-style:italic;color:#888;">"Una casa"</td><td>Resultado simple, sin detalles arquitectónicos.</td></tr><tr><td><span class="tag tag-coral">Detallado</span></td><td style="font-style:italic;color:#555;">"Casa moderna de dos pisos con jardín frontal y piscina, estilo render arquitectónico, iluminación de atardecer, formato horizontal."</td><td>Imagen profesional utilizable en presentaciones.</td></tr></table><div class="block block-pink" style="margin-top:15px;"><div class="block-title">Regla práctica</div>Tu prompt debe tener: <strong>sujeto + entorno + estilo + iluminación/colores + formato</strong>.</div>'
     },
-
-    // ---------- 6. BUENAS PRACTICAS ----------
     {
-        titulo: '4. Buenas practicas',
+        titulo: '4. Buenas prácticas',
         num: '8 / 9',
-        body: `<ul style="font-size:16px;line-height:2.4;">
-            <li><strong>Se descriptivo:</strong> No digas solo "un arbol", di "un arbol de cerezo en flor junto a un rio".</li>
-            <li><strong>Define el estilo:</strong> Especifica si quieres fotorrealista, dibujo animado, acuarela, 3D, etc.</li>
-            <li><strong>Usa referencias de color:</strong> "tonos pastel", "colores vibrantes", "blanco y negro".</li>
-            <li><strong>Ajusta el formato:</strong> "horizontal 16:9" para presentaciones, "cuadrado" para redes.</li>
-            <li><strong>Itera sin miedo:</strong> Pide cambios especificos si el resultado no es lo que esperabas.</li>
-            <li><strong>Limite diario:</strong> DALL-E tiene un limite de generaciones gratuitas. Si lo alcanzas, usa <strong>Bing Image Creator</strong> o <strong>Gemini</strong>.</li>
-        </ul>`
+        body: '<ul style="font-size:16px;line-height:2.4;"><li><strong>Sé descriptivo:</strong> No digas solo "un árbol", di "un árbol de cerezo en flor junto a un rio".</li><li><strong>Define el estilo:</strong> Especifica si quieres fotorrealista, dibujo animado, acuarela, 3D, etc.</li><li><strong>Usa referencias de color:</strong> "tonos pastel", "colores vibrantes", "blanco y negro".</li><li><strong>Ajusta el formato:</strong> "horizontal 16:9" para presentaciones, "cuadrado" para redes.</li><li><strong>Itera sin miedo:</strong> Pide cambios específicos si el resultado no es lo que esperabas.</li><li><strong>Límite diario:</strong> DALL-E tiene un límite de generaciones gratuitas. Usa <strong>Bing Image Creator</strong> o <strong>Gemini</strong>.</li></ul>'
     },
-
-    // ---------- 7. CONCLUSION ----------
     {
-        titulo: 'Conclusion',
+        titulo: 'Conclusión',
         num: '9 / 9',
-        body: `<ul style="font-size:16px;line-height:2.4;">
-            <li>ChatGPT con DALL-E te permite crear imagenes <strong>sin saber disenar</strong>.</li>
-            <li>La clave esta en escribir <strong>prompts descriptivos y detallados</strong>.</li>
-            <li>Puedes generar imagenes para <strong>redes sociales, presentaciones, materiales educativos y mas</strong>.</li>
-            <li>Es una herramienta gratuita accesible desde el navegador, <strong>sin instalar nada</strong>.</li>
-        </ul>
-        <div class="block center" style="margin-top:25px;">
-            <div class="block-title">Frase final</div>
-            <em>"Tu imaginacion es el limite. DALL-E lo convierte en imagen."</em>
-        </div>`
+        body: '<ul style="font-size:16px;line-height:2.4;"><li>ChatGPT con DALL-E te permite crear imágenes <strong>sin saber diseñar</strong>.</li><li>La clave está en escribir <strong>prompts descriptivos y detallados</strong>.</li><li>Puedes generar imágenes para <strong>redes sociales, presentaciones, materiales educativos y más</strong>.</li><li>Es una herramienta gratuita accesible desde el navegador, <strong>sin instalar nada</strong>.</li></ul><div class="block center" style="margin-top:25px;"><div class="block-title">Frase final</div><em>"Tu imaginación es el límite. DALL-E lo convierte en imagen."</em></div>'
     },
-
-    // ---------- GRACIAS ----------
     {
-        titulo: 'Gracias por su atencion!',
+        titulo: 'Gracias por su atención!',
         num: '9 / 9',
-        body: `<div class="final">
-            <h2>Dudas o comentarios?</h2>
-            <p>Participa en el foro del tema</p>
-            <p style="margin-top:30px;color:#3d5a96;font-weight:700;">ICATHI 4.0 — Inteligencia Artificial para todos</p>
-        </div>`
+        body: '<div class="final"><h2>¿Dudas o comentarios?</h2><p>Participa en el foro del tema</p><p style="margin-top:30px;color:#3d5a96;font-weight:700;">ICATHI 4.0 - Inteligencia Artificial para todos</p></div>'
     }
 ];
 
-let actual = 0;
+var actual = 0;
 
 function renderSlide(i) {
-    const s = slides[i];
-    const c = document.getElementById('slides-container');
-    if (s.tipo === 'portada') {
-        c.innerHTML = '<div class="slide portada">' +
-            '<div class="portada-bg"></div>' +
-            '<div class="franja1"></div><div class="franja2"></div><div class="franja3"></div><div class="franja4"></div>' +
-            '<div class="portada-content">' +
-            '<div class="campus">CAMPUS VIRTUAL</div>' +
-            '<h1>Inteligencia Artificial<span>para Todos</span></h1>' +
-            '<div class="tema-label">Tema:</div>' +
-            '<div class="tema">Generacion de imagenes gratuitas<br>dentro de ChatGPT</div>' +
-            '<div class="instituto">Instituto de Capacitacion del Estado de Hidalgo</div>' +
-            '<div class="fecha">' + new Date().toLocaleDateString('es-MX', {year:'numeric',month:'long',day:'numeric'}) + '</div>' +
-            '</div></div>';
+    var s = slides[i];
+    var c = document.getElementById("slides-container");
+    if (s.Tipo === "portada") {
+        c.innerHTML = "<div class=\"slide portada\"><div class=\"portada-bg\"></div><div class=\"franja1\"></div><div class=\"franja2\"></div><div class=\"franja3\"></div><div class=\"franja4\"></div><div class=\"portada-content\"><div class=\"campus\">CAMPUS VIRTUAL</div><h1>Inteligencia Artificial<span>para Todos</span></h1><div class=\"tema-label\">TEMA:</div><div class=\"tema\">Generación de imágenes gratuitas<br>dentro de ChatGPT</div><div class=\"instituto\">Instituto de Capacitación del Estado de Hidalgo</div><div class=\"fecha\">" + new Date().toLocaleDateString("es-MX", {year:"numeric",month:"long",day:"numeric"}) + "</div></div></div>";
     } else {
-        c.innerHTML = '<div class="slide">' +
-            '<div class="slide-header"><h2>' + s.titulo + '</h2><span class="num">' + s.num + '</span></div>' +
-            '<div class="slide-body">' + s.body + '</div>' +
-            '<div class="slide-footer"><span>ICATHI 4.0</span><span>' + s.num + '</span></div>' +
-            '</div>';
+        c.innerHTML = "<div class=\"slide\"><div class=\"slide-header\"><h2>" + s.titulo + "</h2><span class=\"num\">" + s.num + "</span></div><div class=\"slide-body\">" + s.body + "</div><div class=\"slide-footer\"><span>ICATHI 4.0</span><span>" + s.num + "</span></div></div>";
     }
-    document.getElementById('counter').textContent = 'Diapositiva ' + (i + 1) + ' de ' + slides.length;
-    document.querySelectorAll('.nav-bar button').forEach((b, idx) => {
-        b.classList.toggle('activo', idx === i);
-    });
+    document.getElementById("counter").textContent = "Diapositiva " + (i + 1) + " de " + slides.length;
+    var btns = document.querySelectorAll(".nav-bar button");
+    for (var j = 0; j < btns.length; j++) {
+        btns[j].className = (j === i) ? "activo" : "";
+    }
 }
 
-function sig() {
-    if (actual < slides.length - 1) { actual++; renderSlide(actual); }
-}
-function ant() {
-    if (actual > 0) { actual--; renderSlide(actual); }
-}
+function sig() { if (actual < slides.length - 1) { actual++; renderSlide(actual); } }
+function ant() { if (actual > 0) { actual--; renderSlide(actual); } }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const nav = document.createElement('div');
-    nav.className = 'nav-bar';
-    slides.forEach((_, i) => {
-        const b = document.createElement('button');
-        b.textContent = i + 1;
-        b.onclick = () => { actual = i; renderSlide(i); };
-        nav.appendChild(b);
-    });
-    document.body.insertBefore(nav, document.querySelector('.nav-controls'));
+document.addEventListener("DOMContentLoaded", function() {
+    var nav = document.createElement("div");
+    nav.className = "nav-bar";
+    for (var i = 0; i < slides.length; i++) {
+        (function(idx) {
+            var b = document.createElement("button");
+            b.textContent = idx + 1;
+            b.onclick = function() { actual = idx; renderSlide(idx); };
+            nav.appendChild(b);
+        })(i);
+    }
+    document.body.insertBefore(nav, document.querySelector(".nav-controls"));
     renderSlide(0);
 });
 </script>
-
 </body>
 </html>
+
+
+
