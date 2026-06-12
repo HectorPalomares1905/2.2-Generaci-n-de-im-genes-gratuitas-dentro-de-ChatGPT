@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generación de imágenes gratuitas dentro de ChatGPT</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', 'Segoe UI', Helvetica, Arial, sans-serif; background: #f0f2f5; color: #333; }
+    .container { max-width: 1024px; margin: 0 auto; padding: 15px; }
+    .slide { background: #fff; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+    .slide-header { background: #3d5a96; padding: 16px 25px; display: flex; align-items: center; justify-content: space-between; }
+    .slide-header h2 { color: #fff; font-size: 18px; font-weight: 700; margin: 0; }
+    .slide-header .num { color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; }
+    .slide-body { padding: 25px; }
+    .slide-footer { background: #2e4575; padding: 10px 25px; display: flex; justify-content: space-between; color: rgba(255,255,255,0.65); font-size: 12px; }
+    h3 { color: #3d5a96; font-size: 20px; margin-bottom: 15px; }
+    h4 { color: #3d5a96; font-size: 17px; margin-bottom: 10px; }
+
+    .portada { min-height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; border-radius: 20px; margin-bottom: 30px; }
+    .portada-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #3d5a96 0%, #e8755c 50%, #d05a7e 100%); z-index: 0; }
+    .portada .franja1 { position: absolute; bottom: 0; left: 0; right: 0; height: 10px; background: #e8755c; z-index: 1; }
+    .portada .franja2 { position: absolute; top: 0; right: 0; width: 22%; height: 7%; background: #d05a7e; z-index: 1; }
+    .portada .franja3 { position: absolute; bottom: 0; left: 0; width: 8%; height: 15%; background: #d05a7e; z-index: 1; }
+    .portada-content { position: relative; z-index: 2; padding: 40px 30px; }
+    .portada .campus { color: rgba(255,255,255,0.65); font-size: 12px; letter-spacing: 4px; font-weight: 700; margin-bottom: 35px; text-transform: uppercase; }
+    .portada h1 { color: #fff; font-size: 44px; font-weight: 900; line-height: 1.2; margin-bottom: 6px; text-shadow: 3px 3px 12px rgba(0,0,0,0.2); }
+    .portada h1 span { display: block; font-size: 28px; font-weight: 600; }
+    .portada .tema-label { color: rgba(255,255,255,0.8); font-size: 16px; margin-top: 40px; font-weight: 600; }
+    .portada .tema { color: #fff; font-size: 26px; font-weight: 700; margin-top: 6px; }
+    .portada .instituto { color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 40px; }
+    .portada .fecha { color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px; }
+
+    .block { border-radius: 0 10px 10px 0; padding: 15px 20px; margin: 12px 0; }
+    .block-coral { background: #fdf4f0; border-left: 5px solid #e8755c; }
+    .block-blue { background: #eff2f8; border-left: 5px solid #3d5a96; }
+    .block-pink { background: #fdf0f4; border-left: 5px solid #d05a7e; }
+    .block-vino { background: #fdf0f2; border-left: 5px solid #691b31; }
+    .block-title { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+    .block-coral .block-title { color: #e8755c; }
+    .block-blue .block-title { color: #3d5a96; }
+    .block-pink .block-title { color: #d05a7e; }
+    .block-vino .block-title { color: #691b31; }
+
+    ul, ol { padding-left: 22px; line-height: 2; }
+    li { margin-bottom: 4px; }
+    .columns { display: flex; gap: 25px; }
+    .columns > div { flex: 1; }
+    .tag { display: inline-block; background: #3d5a96; color: #fff; padding: 3px 10px; border-radius: 15px; font-size: 11px; font-weight: 600; margin: 2px 4px 2px 0; }
+    .tag-coral { background: #e8755c; }
+    .tag-pink { background: #d05a7e; }
+    .example-box { background: #fafafa; border: 1.5px dashed #3d5a96; border-radius: 12px; padding: 18px 20px; margin: 15px 0; }
+    .example-box h4 { color: #3d5a96; margin: 0 0 8px; font-size: 16px; }
+    .example-box .prompt { background: #fff; padding: 10px 14px; border-radius: 8px; border: 1px solid #e0e0e0; margin-top: 8px; font-style: italic; color: #555; }
+    .example-box .resultado { background: #f0f4ff; padding: 8px 14px; border-radius: 8px; margin-top: 8px; font-size: 14px; color: #3d5a96; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; }
+    th { background: #3d5a96; color: #fff; }
+    tr:nth-child(even) { background: #f8f9fc; }
+    .center { text-align: center; }
+    .conclusion-box { background: linear-gradient(135deg, #fdf4f0, #eff2f8); border: 2px solid #e8755c; border-radius: 15px; padding: 20px 25px; margin-top: 20px; text-align: center; }
+    @media (max-width: 768px) {
+        .portada h1 { font-size: 30px; }
+        .portada h1 span { font-size: 22px; }
+        .portada .tema { font-size: 20px; }
+        .columns { flex-direction: column; }
+        .container { padding: 10px; }
+        .slide-body { padding: 18px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==================== PORTADA ==================== -->
+    <div class="portada">
+        <div class="portada-bg"></div>
+        <div class="franja1"></div><div class="franja2"></div><div class="franja3"></div>
+        <div class="portada-content">
+            <div class="campus">Campus Virtual</div>
+            <h1>Inteligencia Artificial<span>para todos</span></h1>
+            <div class="tema-label">TEMA:</div>
+            <div class="tema">Generación de imágenes gratuitas<br>dentro de ChatGPT</div>
+            <div class="instituto">Instituto de Capacitación del Estado de Hidalgo</div>
+            <div class="fecha"></div>
+        </div>
+    </div>
+
+    <!-- ==================== ÍNDICE ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>Índice</h2><span class="num">1 / 9</span></div>
+        <div class="slide-body">
+            <div class="columns">
+                <div>
+                    <strong style="color:#3d5a96;">1. ¿Qué es DALL·E?</strong><br>
+                    <span style="color:#666;">- Generación de imágenes con IA</span><br>
+                    <span style="color:#666;">- Acceso gratuito en ChatGPT</span>
+                    <br><br>
+                    <strong style="color:#3d5a96;">2. Cómo crear imágenes</strong><br>
+                    <span style="color:#666;">- Pasos básicos</span><br>
+                    <span style="color:#666;">- Consejos para prompts visuales</span>
+                </div>
+                <div>
+                    <strong style="color:#3d5a96;">3. Ejemplos prácticos</strong><br>
+                    <span style="color:#666;">- 6 ejemplos paso a paso</span>
+                    <br><br>
+                    <strong style="color:#3d5a96;">4. Consejos y cierre</strong><br>
+                    <span style="color:#666;">- Buenas prácticas</span><br>
+                    <span style="color:#666;">- Conclusión</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>1 / 9</span></div>
+    </div>
+
+    <!-- ==================== 1. ¿QUÉ ES DALL·E? ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>1. ¿Qué es DALL·E?</h2><span class="num">2 / 9</span></div>
+        <div class="slide-body">
+            <div class="block block-coral">
+                <div class="block-title">Definición</div>
+                DALL·E es un sistema de inteligencia artificial desarrollado por OpenAI que genera imágenes a partir de descripciones escritas en lenguaje natural. Está integrado directamente en ChatGPT.
+            </div>
+
+            <div style="margin-top:18px;">
+                <strong>¿Cómo acceder gratis?</strong>
+                <ul>
+                    <li>Entra a <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li>
+                    <li>Inicia sesión con tu cuenta gratuita</li>
+                    <li>En la conversación, escribe un prompt describiendo la imagen que quieres crear</li>
+                    <li>ChatGPT usará DALL·E automáticamente para generarla</li>
+                </ul>
+            </div>
+
+            <table style="margin-top:15px;">
+                <tr><th style="width:35%;">Plataforma</th><th>¿Incluye generación de imágenes?</th></tr>
+                <tr><td>ChatGPT (versión gratuita)</td><td>Sí, con DALL·E (cantidad limitada)</td></tr>
+                <tr><td>Gemini (gratuito)</td><td>Sí, con Imagen de Google</td></tr>
+                <tr><td>Claude (gratuito)</td><td>No genera imágenes</td></tr>
+            </table>
+
+            <div class="block block-blue" style="margin-top:15px;">
+                <div class="block-title">Dato clave</div>
+                No necesitas saber de diseño ni de arte. Solo escribe lo que imaginas y DALL·E lo crea por ti.
+            </div>
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>2 / 9</span></div>
+    </div>
+
+    <!-- ==================== 2. CÓMO CREAR IMÁGENES ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>2. Cómo crear imágenes con DALL·E</h2><span class="num">3 / 9</span></div>
+        <div class="slide-body">
+            <h3>Pasos básicos</h3>
+            <ol>
+                <li><strong>Describe tu imagen:</strong> Escribe qué quieres ver (objetos, colores, estilo, ambiente).</li>
+                <li><strong>Agrega detalles:</strong> Mientras más específico seas, mejor será el resultado.</li>
+                <li><strong>Especifica el estilo:</strong> Realista, animado, acuarela, dibujo, 3D, etc.</li>
+                <li><strong>Itera:</strong> Si no te gusta, pídele ajustes a ChatGPT.</li>
+            </ol>
+
+            <h3 style="margin-top:20px;">Consejos para un buen prompt visual</h3>
+            <table>
+                <tr><th>Elemento</th><th>Ejemplo</th></tr>
+                <tr><td>Sujeto principal</td><td>"un gato", "una casa moderna", "un logotipo"</td></tr>
+                <tr><td>Entorno o fondo</td><td>"en una playa", "en un bosque", "fondo blanco"</td></tr>
+                <tr><td>Estilo artístico</td><td>"estilo acuarela", "fotorrealista", "animado", "dibujo a lápiz"</td></tr>
+                <tr><td>Iluminación</td><td>"luz natural", "atardecer", "iluminación de estudio"</td></tr>
+                <tr><td>Colores</td><td>"tonos pastel", "blanco y negro", "colores vibrantes"</td></tr>
+                <tr><td>Formato</td><td>"horizontal 16:9", "cuadrado", "vertical"</td></tr>
+            </table>
+
+            <div class="block block-vino" style="margin-top:15px;">
+                <div class="block-title">Fórmula recomendada</div>
+                <em>"Crea una imagen de [sujeto] en [entorno], estilo [estilo], con [colores/iluminación], formato [horizontal/cuadrado/vertical]."</em>
+            </div>
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>3 / 9</span></div>
+    </div>
+
+    <!-- ==================== 3. EJEMPLOS PRÁCTICOS ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>3. Ejemplos prácticos (1-3)</h2><span class="num">4 / 9</span></div>
+        <div class="slide-body">
+
+            <!-- Ejemplo 1 -->
+            <div class="example-box">
+                <h4>Ejemplo 1: Paisaje natural</h4>
+                <div class="prompt">"Crea una imagen de una montaña nevada con un lago cristalino al amanecer, estilo fotorrealista, colores fríos, formato horizontal."</div>
+                <div class="resultado">Ideal para fondos de pantalla o presentaciones sobre naturaleza.</div>
+            </div>
+
+            <!-- Ejemplo 2 -->
+            <div class="example-box">
+                <h4>Ejemplo 2: Logotipo institucional</h4>
+                <div class="prompt">"Diseña un logotipo moderno para un instituto de capacitación, con un libro abierto y una estrella, colores azul y naranja, estilo minimalista, fondo blanco."</div>
+                <div class="resultado">Útil para proyectos visuales sin saber diseño gráfico.</div>
+            </div>
+
+            <!-- Ejemplo 3 -->
+            <div class="example-box">
+                <h4>Ejemplo 3: Escena educativa animada</h4>
+                <div class="prompt">"Ilustración animada de un salón de clases con estudiantes diversos usando tablets, colores cálidos, estilo cartoon, formato cuadrado."</div>
+                <div class="resultado">Perfecto para materiales educativos o presentaciones.</div>
+            </div>
+
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>4 / 9</span></div>
+    </div>
+
+    <!-- ==================== EJEMPLOS 4-6 ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>3. Ejemplos prácticos (4-6)</h2><span class="num">5 / 9</span></div>
+        <div class="slide-body">
+
+            <!-- Ejemplo 4 -->
+            <div class="example-box">
+                <h4>Ejemplo 4: Imagen para redes sociales</h4>
+                <div class="prompt">"Crea una imagen para Instagram de una taza de café humeante con hojas de otoño alrededor, estilo acuarela, tonos naranja y marrón, formato cuadrado."</div>
+                <div class="resultado">Ideal para publicaciones de redes sociales sin usar bancos de imágenes.</div>
+            </div>
+
+            <!-- Ejemplo 5 -->
+            <div class="example-box">
+                <h4>Ejemplo 5: Producto ficticio</h4>
+                <div class="prompt">"Genera la imagen de un envase de perfume elegante de vidrio azul con un tapón dorado, sobre una superficie de mármol, iluminación de estudio, estilo fotorrealista."</div>
+                <div class="resultado">Sirve para catálogos conceptuales o lluvia de ideas de diseño.</div>
+            </div>
+
+            <!-- Ejemplo 6 -->
+            <div class="example-box">
+                <h4>Ejemplo 6: Mascota / personaje</h4>
+                <div class="prompt">"Dibuja una abeja robot simpática con casco y herramientas, estilo animado 3D, colores amarillo y azul, fondo degradado."</div>
+                <div class="resultado">Útil para crear personajes para campañas o juegos educativos.</div>
+            </div>
+
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>5 / 9</span></div>
+    </div>
+
+    <!-- ==================== COMPARATIVA DE PROMPTS ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>Comparativa: prompt básico vs. detallado</h2><span class="num">6 / 9</span></div>
+        <div class="slide-body">
+            <table>
+                <tr><th style="width:15%;">Tipo</th><th style="width:40%;">Prompt</th><th>Resultado esperado</th></tr>
+                <tr>
+                    <td><span class="tag">Básico</span></td>
+                    <td style="font-style:italic; color:#888;">"Un perro"</td>
+                    <td>Imagen genérica, puede no tener fondo ni estilo definido.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag tag-coral">Detallado</span></td>
+                    <td style="font-style:italic; color:#555;">"Un perro golden retriever jugando en un parque soleado, estilo fotorrealista, colores cálidos, formato horizontal."</td>
+                    <td>Imagen específica, lista para usar en presentaciones o redes.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag">Básico</span></td>
+                    <td style="font-style:italic; color:#888;">"Una casa"</td>
+                    <td>Resultado simple, sin detalles arquitectónicos.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag tag-coral">Detallado</span></td>
+                    <td style="font-style:italic; color:#555;">"Casa moderna de dos pisos con jardín frontal y piscina, estilo render arquitectónico, iluminación de atardecer, formato horizontal."</td>
+                    <td>Imagen profesional utilizable en presentaciones de proyectos.</td>
+                </tr>
+            </table>
+
+            <div class="block block-pink" style="margin-top:15px;">
+                <div class="block-title">Regla práctica</div>
+                Tu prompt debe tener al menos: <strong>sujeto + entorno + estilo + iluminación/colores + formato</strong>.
+            </div>
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>6 / 9</span></div>
+    </div>
+
+    <!-- ==================== BUENAS PRÁCTICAS ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>4. Buenas prácticas</h2><span class="num">7 / 9</span></div>
+        <div class="slide-body">
+            <ul>
+                <li><strong>Sé descriptivo:</strong> No digas solo "un árbol", di "un árbol de cerezo en flor junto a un río".</li>
+                <li><strong>Define el estilo:</strong> Especifica si quieres fotorrealista, dibujo animado, acuarela, 3D, etc.</li>
+                <li><strong>Usa referencias de color:</strong> "tonos pastel", "colores vibrantes", "blanco y negro".</li>
+                <li><strong>Ajusta el formato:</strong> "horizontal 16:9" para presentaciones, "cuadrado" para redes sociales.</li>
+                <li><strong>Itera sin miedo:</strong> Pide cambios específicos si el resultado no es lo que esperabas.</li>
+            </ul>
+
+            <div class="block block-vino" style="margin-top:15px;">
+                <div class="block-title">Importante</div>
+                DALL·E tiene un límite de generaciones gratuitas por día. Una vez alcanzado, puedes seguir al día siguiente o usar otras herramientas gratuitas como <strong>Bing Image Creator</strong> (también usa DALL·E) o <strong>Gemini</strong> de Google.
+            </div>
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>7 / 9</span></div>
+    </div>
+
+    <!-- ==================== CONCLUSIÓN ==================== -->
+    <div class="slide">
+        <div class="slide-header"><h2>Conclusión</h2><span class="num">8 / 9</span></div>
+        <div class="slide-body">
+            <ul>
+                <li>ChatGPT con DALL·E te permite crear imágenes <strong>sin saber diseñar</strong>.</li>
+                <li>La clave está en escribir <strong>prompts descriptivos y detallados</strong>.</li>
+                <li>Puedes generar imágenes para <strong>redes sociales, presentaciones, materiales educativos y más</strong>.</li>
+                <li>Es una herramienta gratuita accesible desde el navegador, <strong>sin instalar nada</strong>.</li>
+            </ul>
+
+            <div class="conclusion-box">
+                <p style="font-size:17px; font-style:italic; color:#3d5a96; margin:0;"><strong>"Tu imaginación es el límite. DALL·E lo convierte en imagen."</strong></p>
+            </div>
+        </div>
+        <div class="slide-footer"><span>ICATHI 4.0</span><span>8 / 9</span></div>
+    </div>
+
+    <!-- ==================== GRACIAS ==================== -->
+    <div class="portada" style="min-height:50vh;">
+        <div class="portada-bg"></div>
+        <div class="franja1"></div><div class="franja2"></div><div class="franja3"></div>
+        <div class="portada-content">
+            <h2 style="font-size:34px; font-weight:900; color:#fff; margin:0 0 10px; text-shadow:3px 3px 12px rgba(0,0,0,0.3);">¡Gracias por su atención!</h2>
+            <div style="width:60px; height:4px; background:#fff; margin:0 auto 20px; border-radius:2px; opacity:0.4;"></div>
+            <p style="font-size:17px; color:rgba(255,255,255,0.85); margin:0;">¿Dudas o comentarios?</p>
+            <p style="font-size:14px; color:rgba(255,255,255,0.65); margin-top:12px;">Participa en el foro del tema</p>
+            <p style="font-size:13px; color:rgba(255,255,255,0.85); font-weight:700; margin-top:30px;">ICATHI 4.0 — Inteligencia Artificial para todos</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Fecha automática en portada
+    document.querySelector('.portada .fecha').textContent = new Date().toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' });
+
+    // Contador en navbar virtual (el footer ya tiene el num estático)
+    // Se actualiza el num de cada slide-footer con índice real
+    const footers = document.querySelectorAll('.slide-footer span:last-child');
+    const total = footers.length + 1; // +1 portada no tiene footer
+    footers.forEach((el, i) => {
+        el.textContent = (i + 2) + ' / ' + (total + 1);
+    });
+</script>
+
+</body>
+</html>
